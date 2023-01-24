@@ -37,6 +37,6 @@ snscrape requires Python 3.8 or higher. The Python package dependencies are inst
 ![output_csv](https://user-images.githubusercontent.com/117283354/214276311-61622624-9b64-4396-aea4-558cac6929f1.jpg)
 # output in json
 ![input_json](https://user-images.githubusercontent.com/117283354/214276475-df4f661d-c767-4449-8ff2-a326e1e739c1.jpg)
-# output in export
+# export export
 ![output_export](https://user-images.githubusercontent.com/117283354/214276621-29d61f7d-76b5-494c-82fb-9680df14de1e.jpg)
 
