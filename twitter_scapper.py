@@ -20,6 +20,8 @@ st.title("""
     Twitter Scrapping using Snscrape and Streamlit:
     """)
 
+if 'active_state' not in st.session_state:
+    st.session_state.active_state=False
 
 today=date.today()
 NAME = st.sidebar.text_input('What do you want to search for?')
@@ -27,7 +29,7 @@ search_radio = st.sidebar.radio('Type of search',['Username', 'hashtag', 'Messag
 search_type=''
 if search_radio=="Username":
     Search_type="from"
-elif search_radio=="hashtag":
+elif search_radio=="Hashtag":
     search_type="#"
 else:
     search_type=" "
@@ -38,11 +40,12 @@ end_date=st.sidebar.date_input('enter the end date',today)
 csv = st.sidebar.radio("Download option", ['CSV', 'Json', 'Export'])
 
 count = int(count)
-submit_button = st.sidebar.button(label='Search')
+submit_button = st.sidebar.buttx`x`on(label='Search')
 
 tweets_list1 = []
 
-if submit_button:
+if submit_button or st.session_state.active_state:
+    st.session_state.active_state=True
     for i , tweet in enumerate(sntwitter.TwitterSearchScraper(f'{search_type}:{NAME} since:{start_date} until:{end_date}').get_items()):
         if i > count-1:
             break
@@ -57,7 +60,8 @@ if submit_button:
 
     st.success("you have Extracted the data ")
 
-    if csv == "CSV":
+    if csv == "CSV" or st.session_state.active_state:
+        st.session_state.active_state=True
         file_converted = tweet_df.to_csv()
         st.download_button(
             label="Download data as CSV",
@@ -65,15 +69,17 @@ if submit_button:
             file_name=f'{NAME}_Twitter.csv',
             mime='text/csv',
         )
-    elif (csv == 'Json'):
+    elif (csv == 'Json') or st.session_state.active_state:
+        st.session_state.active_state=True
         file_converted = tweet_df.to_json()
-        st.download_button(
+        st.download_button (
             label="Download data as json",
             data=file_converted,
             file_name=f'{NAME}_Twitter.json',
             mime="application/json",
         )
-    elif csv == "Export":
+    elif csv == "Export" or st.session_state.active_state:
+        st.session_state.active_state=True
         export_button = st.button(label="Export")
         now = datetime.datetime.now()
         client = pymongo.MongoClient("mongodb+srv://bhuvaneswarank:Krishna12@cluster0.7hwuocf.mongodb.net/?retryWrites=true&w=majority")
